@@ -1,24 +1,34 @@
 package com.example.mycampusassistant;
 
 import android.os.Bundle;
-
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import java.util.ArrayList;
 
 public class ClassScheduleActivity extends AppCompatActivity {
+
+    RecyclerView recyclerSchedule;
+    ArrayList<ClassSchedule> scheduleList;
+    ClassScheduleAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_class_schedule);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+
+        recyclerSchedule = findViewById(R.id.recyclerSchedule);
+        scheduleList = new ArrayList<>();
+
+        // Sample data
+        scheduleList.add(new ClassSchedule("Monday", "8:00 AM", "Mathematics"));
+        scheduleList.add(new ClassSchedule("Tuesday", "10:00 AM", "Java Programming"));
+        scheduleList.add(new ClassSchedule("Wednesday", "9:00 AM", "Data Structures"));
+        scheduleList.add(new ClassSchedule("Thursday", "11:00 AM", "Operating Systems"));
+        scheduleList.add(new ClassSchedule("Friday", "1:00 PM", "Database Systems"));
+
+        adapter = new ClassScheduleAdapter(scheduleList);
+        recyclerSchedule.setLayoutManager(new LinearLayoutManager(this));
+        recyclerSchedule.setAdapter(adapter);
     }
 }
