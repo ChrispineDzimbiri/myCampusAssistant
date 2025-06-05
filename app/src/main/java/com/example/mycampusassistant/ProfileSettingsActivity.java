@@ -1,24 +1,43 @@
 package com.example.mycampusassistant;
 
 import android.os.Bundle;
-
-import androidx.activity.EdgeToEdge;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 public class ProfileSettingsActivity extends AppCompatActivity {
+
+    EditText inputName, inputID, inputCourse;
+    Button btnEdit, btnSave;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_profile_settings);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+
+        inputName = findViewById(R.id.inputName);
+        inputID = findViewById(R.id.inputID);
+        inputCourse = findViewById(R.id.inputCourse);
+        btnEdit = findViewById(R.id.btnEdit);
+        btnSave = findViewById(R.id.btnSave);
+
+        // Disable editing by default
+        inputName.setEnabled(false);
+        inputID.setEnabled(false);
+        inputCourse.setEnabled(false);
+
+        btnEdit.setOnClickListener(v -> {
+            inputName.setEnabled(true);
+            inputID.setEnabled(true);
+            inputCourse.setEnabled(true);
+        });
+
+        btnSave.setOnClickListener(v -> {
+            inputName.setEnabled(false);
+            inputID.setEnabled(false);
+            inputCourse.setEnabled(false);
+            Toast.makeText(this, "Profile saved!", Toast.LENGTH_SHORT).show();
         });
     }
 }
